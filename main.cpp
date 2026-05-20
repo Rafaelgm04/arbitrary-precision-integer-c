@@ -14,31 +14,6 @@ class BigNum
     vector<uint8_t> Big;
 
 //public:
-    void Converte(const string &num){
-
-        
-        for(size_t i =0;i < num.size();i++){
-            
-            uint16_t carry = num[i] - '0';
-            for(size_t j =0;j < Big.size();j++){
-            
-                uint16_t s = Big[j]*10 + carry;
-                Big[j] = (uint8_t)(s % 256);
-
-                carry = s/256;
-                
-
-            }
-            while(carry){
-                Big.push_back((uint8_t)carry);
-
-                carry = carry/256;
-
-            }
-            
-        }
-
-    }
 
     void DesConverteSimples()const{
        unsigned long long num = 0;
@@ -183,6 +158,31 @@ public:
         }
     }
 
+    void Converte(const string &num){
+
+        
+        for(size_t i =0;i < num.size();i++){
+            
+            uint16_t carry = num[i] - '0';
+            for(size_t j =0;j < Big.size();j++){
+            
+                uint16_t s = Big[j]*10 + carry;
+                Big[j] = (uint8_t)(s % 256);
+
+                carry = s/256;
+                
+
+            }
+            while(carry){
+                Big.push_back((uint8_t)carry);
+
+                carry = carry/256;
+
+            }
+            
+        }
+
+    }
 
     string DesConverte()const{       
         string num = "0";
@@ -190,6 +190,7 @@ public:
             num = multiplica(num,(unsigned)256);
             num = soma_base_10(num,to_string(Big.at(i) ) );
         }
+        return num;
     }
 
 };
@@ -269,8 +270,22 @@ int main()
     //cout << (soma_base_10(num,"1234321")) << "\n";
 
     //cout << multiplica(num,2);
+    BigNum teste;
+    BigNum teste1;
+
+    teste1.Converte("0");
+    teste.Converte("267");
+    //arrumar 
+    //tem erro na coversao esta convetendo ao contrario 
+    //esta 1*256^0 + 11*256^1
+    //mas era pra estar 1*256^1 + 11*256^0
+    //e pararece que esta somando algo a mais em algum lugar 
 
 
+    //teste = teste1 + teste;
+    teste.mostra_bytes();
+    cout  << "\n" << "valor em int: ";
+    cout << teste.DesConverte();
 
     return 0;
 }
