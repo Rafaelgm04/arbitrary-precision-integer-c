@@ -49,23 +49,14 @@ auto multiplica = [](const string &num_string,const string &num_string1){
         for(size_t n = num_string1.size();n > 0;n--){
             uint16_t carry =0;
             string  soma;
-            for(size_t i = num_string.size();i > 0;i--){
-        
-                uint16_t s = ((num_string1[n -1]-'0')*(num_string[i-1] - '0')) + carry;
-
-                if(s > 9){
-                    carry = s/10;
-                }
-                else{
-                    carry =0;
-                }
-                if(i != 1){
-                    soma.push_back(s%10 + '0');
-                }else{
-                    string temp(to_string((int)s));
-                    reverse(temp.begin(),temp.end());
-                    soma = soma + temp;
-                }
+             for(size_t i = num_string.size(); i > 0; i--){
+                uint16_t s = ((num_string1[n-1]-'0') * (num_string[i-1]-'0')) + carry;
+                carry = s / 10;
+                soma.push_back(s % 10 + '0');
+            }
+            while(carry){
+                soma.push_back(carry % 10 + '0');
+                carry /= 10;
             }
             mult.push_back(soma); 
         }
@@ -73,23 +64,14 @@ auto multiplica = [](const string &num_string,const string &num_string1){
         for(size_t n = num_string.size();n > 0;n--){
             uint16_t carry =0;
             string  soma;
-            for(size_t i = num_string1.size();i > 0;i--){
-        
-                uint16_t s = ((num_string1[i -1]-'0')*(num_string[n-1] - '0')) + carry;
-
-                if(s > 9){
-                    carry = s/10;
-                }
-                else{
-                    carry =0;
-                }
-                if(i != 1){
-                    soma.push_back(s%10 + '0');
-                }else{
-                    string temp(to_string((int)s));
-                    reverse(temp.begin(),temp.end());
-                    soma = soma + temp;
-                }
+            for(size_t i = num_string1.size(); i > 0; i--){
+                uint16_t s = ((num_string1[i-1]-'0') * (num_string[n-1]-'0')) + carry;
+                carry = s / 10;
+                soma.push_back(s % 10 + '0');
+            }
+            while(carry){
+                soma.push_back(carry % 10 + '0');
+                carry /= 10;
             }
             mult.push_back(soma); 
         }
@@ -308,7 +290,7 @@ bool BigNum::operator==(const string &outro1) const{
 
 
 
-    
+/*  
 //implementar ainda 
 bool BigNum::operator>(const BigNum &outro) const{
     size_t i=0;
@@ -325,7 +307,7 @@ bool BigNum::operator>(const BigNum &outro) const{
     for(size_t i =0;i < tam;i++){
     }
 }
-    
+*/
 /*BigNum BigNum::operator*(BigNum outro)const {
     BigNum resu("0");
     while(outro > "0"){
@@ -354,7 +336,7 @@ void BigNum::Converte(const string &num){
             
         }
         while(carry){
-            Big.push_back((uint8_t)carry);
+            Big.push_back((uint8_t)(carry % 256));
             carry = carry/256;
         }
         
@@ -388,7 +370,7 @@ void BigNum::fatorial(unsigned num){
 }
 
 
-istream &operator>>(istream &input, BigNum &Num){
+//istream &operator>>(istream &input, BigNum &Num){
 
-}
+//}
 
